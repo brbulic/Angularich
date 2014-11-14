@@ -1,0 +1,52 @@
+<div class="error"> {{errorMessage}}</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="2">Entity Name</th>
+      <th>Entity Mapping</th>
+      <th>First Row Preview</th>
+      <th>Other Data</th>
+    </tr>
+  </thead>
+  <tbody ng-repeat="entity in mappingData">
+    <tr ng-repeat="entityProperty in entity.properties" ng-class="evaluateClass(entity)">
+      <td>
+        <div ng-if="fx.elementOf(entityProperty, entity.properties) === 0" ng-class="{required: entityProperty.isRequired}">
+          {{entity.entityName}}
+        </div>
+        <div ng-if="fx.elementOf(entityProperty, entity.properties) === 1">
+          <select ng-model="entity.lookupType" style="min-width: 100px;">
+            <option value="0">Insert</option>
+            <option value="1">Upsert</option>
+            <option value="2">Lookup</option>
+          </select>
+        </div>
+      </td>
+      <td ng-class="{required: entityProperty.isRequired}">
+        {{entityProperty.label}}
+      </td>
+      <td>
+        <div ng-if="entityProperty.childEntityMappingInfo !== ngFx.EntityDescriptor.EmptyChildEntity">
+          <select ng-model="entityProperty.column" ng-options="fileColumn.id as fileColumn.label for fileColumn in csvFilePreview.columnLabels"></select>
+        </div>
+      </td>
+      <td>
+        <div>
+          {{fx.evaluateFirstRow(entityProperty.column)}}
+        </div>
+      </td>
+      <td>
+        <div>
+
+        </div>
+        <div>
+
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="javascript:;" ng-click="nextStep()">Next Step</a>
+
+

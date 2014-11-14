@@ -1,0 +1,16 @@
+<tr ng-repeat="element in propertyMap.properties">
+
+  <td>
+    {{element.label}}
+  </td>
+  <td>
+    <select ng-model="element.column" ng-options="fileColumn for fileColumn in mappingElements.columnLabels"></select>
+  </td>
+  <td>
+
+  </td>
+  <td>
+
+  </td>
+</tr>
+
