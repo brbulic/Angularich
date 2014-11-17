@@ -5,18 +5,36 @@
  * # MainCtrl
  * Controller of the mockeryApp
  */
-angular.module('mockeryApp').controller('MainCtrl', ["$scope", function ($scope) {
+angular.module("mockeryApp").controller("MainCtrl", ["$scope", function ($scope) {
   "use strict";
 
-  $scope.mappingData = ngFx.flattenEntityProperties(ngFx.propertyMappingInfo);
+  $scope.mappingData = _.cloneDeep(ngFx.flattenEntityProperties(ngFx.propertyMappingInfo));
 
   $scope.evaluateClass = function (element) {
     return "tr-" + element.embeddingIndex;
   };
 
   $scope.errorMessage = "";
+
   $scope.nextStep = function () {
-    alert("BOGEN !");
+    var allProperties = _.flatten($scope.mappingData, "properties");
+    var mappedProperties = _.map(allProperties, function (property) {
+      return {
+        csvIndex: property.column,
+        propertyName: property.propertyName,
+        isRequired: property.isRequired
+      };
+    });
+
+    var hasCsvValue = _.all(mappedProperties, function (e) {
+      return !e.isRequired || e.csvIndex > -1 ;
+    });
+
+    if (hasCsvValue) {
+      alert(JSON.stringify(mappedProperties, undefined, 0));
+    } else {
+      alert("Please map all required elements!");
+    }
   };
 
   $scope.fx = {
@@ -33,22 +51,13 @@ angular.module('mockeryApp').controller('MainCtrl', ["$scope", function ($scope)
     }
   };
 
-  var columnLabels = _.union(["== NOT SELECTED =="], [
-    "Department Code",
-    "Department Title",
-    "Division Code",
-    "Division Title"
-  ]);
-
-  columnLabels = _.map(columnLabels, function (e, i) {
-    return {
-      id: (i - 1),
-      label: e
-    };
-  });
-
   $scope.csvFilePreview = {
-    "columnLabels": columnLabels,
+    "columnLabels": [
+      "Department Code",
+      "Department Title",
+      "Division Code",
+      "Division Title"
+    ],
     "rowsData": [
       [
         "lectus",
@@ -107,5 +116,13 @@ angular.module('mockeryApp').controller('MainCtrl', ["$scope", function ($scope)
     ]
   };
 
+  $scope.csvFilePreview.columnLabels.unshift("== NOT SELECTED ==");
+
+  $scope.csvFilePreview.columnLabels = _.map($scope.csvFilePreview.columnLabels, function (e, i) {
+    return {
+      id: (i - 1),
+      label: e
+    };
+  });
 
 }]);
