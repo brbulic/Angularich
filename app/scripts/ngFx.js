@@ -6,6 +6,10 @@ var ngFx = (function () {
   "use strict";
   var ngFx = {};
 
+  ngFx.lookupTypes = {
+    
+  };
+
   ngFx.tabelator = function (obj) {
     var secret = function (obj, accumulator) {
       var tabs = _.reduce(_.range(accumulator), function (acc, element) {
