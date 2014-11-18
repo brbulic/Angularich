@@ -9,9 +9,28 @@ angular.module("mockeryApp").directive("lookupType", function () {
       entityProperty: "="
     },
     controller: ["$scope", function ($scope) {
+      var boolean = [
+        {
+          value: undefined,
+          label: ngFx.notSelectedOption
+        },
+        {
+          value: "yes",
+          label: "Yes"
+        },
+        {
+          value: "no",
+          label: "No"
+        }
+      ];
+
       $scope.fx = {
         dataSourceForDropdown: function (selectedModel) {
-          if (selectedModel === 1)
+          if (selectedModel === ngFx.lookupTypes.Boolean) {
+            return boolean;
+          } else {
+            return [];
+          }
         }
       };
     }],
@@ -19,4 +38,3 @@ angular.module("mockeryApp").directive("lookupType", function () {
     replace: false
   };
 });
-

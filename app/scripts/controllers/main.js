@@ -116,7 +116,7 @@ angular.module("mockeryApp").controller("MainCtrl", ["$scope", function ($scope)
     ]
   };
 
-  $scope.csvFilePreview.columnLabels.unshift("== NOT SELECTED ==");
+  $scope.csvFilePreview.columnLabels.unshift(ngFx.notSelectedOption);
 
   $scope.csvFilePreview.columnLabels = _.map($scope.csvFilePreview.columnLabels, function (e, i) {
     return {

@@ -5,7 +5,7 @@
       <th colspan="2">Entity Name</th>
       <th>Entity Mapping</th>
       <th>First Row Preview</th>
-      <th>Other Data</th>
+      <th>Lookups</th>
     </tr>
   </thead>
   <tbody ng-repeat="entity in mappingData">
@@ -36,6 +36,10 @@
         </div>
       </td>
       <td>
+        <div ng-if="fx.elementOf(entityProperty, entity.properties) === 0 && !!entity.autoCompletePlaceholder" >
+          <entity-property-lookup entity-property="entity"></entity-property-lookup>
+        </div>
+        {{entityProperty.autoCompletePlaceholder}}
         <lookup-type entity-property="entityProperty"></lookup-type>
       </td>
     </tr>

@@ -7,8 +7,23 @@ var ngFx = (function () {
   var ngFx = {};
 
   ngFx.lookupTypes = {
-    
+    None: 0,
+    BargainingUnit: 1,
+    CompetencyCategory: 2,
+    GoalCategory: 3,
+    PhysicalClass: 4,
+    Benefit: 5,
+    OccupationalGroup: 6,
+    FLSA: 7,
+    EEO: 8,
+    SalaryPaid: 9,
+    BillableHours: 10,
+    PerformanceSchedule: 11,
+    State: 12,
+    Boolean: 13
   };
+
+  ngFx.notSelectedOption = "== NOT SELECTED ==";
 
   ngFx.tabelator = function (obj) {
     var secret = function (obj, accumulator) {
@@ -31,13 +46,14 @@ var ngFx = (function () {
     return (secret(obj, 0) + 1);
   };
 
-  ngFx.EntityDescriptor = function (entityName, embeddingIndex, propertyArray) {
+  ngFx.EntityDescriptor = function (entityName, embeddingIndex, propertyArray, entityPlaceholderText) {
     this.EmptyChildEntity = "EMPTY";
 
     return {
       entityName: entityName,
       embeddingIndex: embeddingIndex,
       properties: propertyArray,
+      autoCompletePlaceholder: entityPlaceholderText || null,
       lookupType: 0
     };
   };
@@ -55,7 +71,8 @@ var ngFx = (function () {
           var parsed = new ngFx.EntityDescriptor(
             elementCopy.label,
             embedIndex + 1,
-            secret(element.childEntityMappingInfo, embedIndex + 1, [])
+            secret(element.childEntityMappingInfo, embedIndex + 1, []),
+            element.autoCompletePlaceholder
           );
 
           resultObject.push(parsed);
