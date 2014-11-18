@@ -37,7 +37,7 @@
       </td>
       <td>
         <div ng-if="fx.elementOf(entityProperty, entity.properties) === 0 && !!entity.autoCompletePlaceholder" >
-          <entity-property-lookup entity-property="entity"></entity-property-lookup>
+          <entity-lookup lookup-spec="entity"></entity-lookup>
         </div>
         {{entityProperty.autoCompletePlaceholder}}
         <lookup-type entity-property="entityProperty"></lookup-type>

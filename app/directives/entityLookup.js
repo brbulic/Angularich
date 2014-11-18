@@ -2,16 +2,16 @@
  * Created by brbulic on 18/11/14.
  */
 
-angular.module("mockeryApp").directive("entityPropertyLookup", function () {
+angular.module("mockeryApp").directive("entityLookup", function () {
   "use strict";
   return {
     scope: {
-      entityProperty: "="
+      lookupSpec: "="
     },
     controller: ["$scope", function ($scope) {
 
     }],
-    templateUrl: "views/entityPropertyLookup.html",
+    templateUrl: "../views/entityLookup.html",
     replace: false
   };
 });
